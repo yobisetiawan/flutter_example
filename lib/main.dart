@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (todo != null) {
       setState(() {
+        qSearch = "";
         todos.add(todo);
       });
     }
