@@ -31,7 +31,7 @@ class MyHomeController extends GetxController {
   RxList<Todo> todos = RxList<Todo>();
 
   searchTodo(String q) {
-    qSearch(q);
+    qSearch.value = q;
   }
 
   deleteTodo() {
@@ -44,6 +44,7 @@ class MyHomeController extends GetxController {
 
   addTodo(todo) {
     todos.add(todo);
+    searchTodo('');
   }
 
   onTodoToggle(Todo todo, isChecked) {
@@ -115,12 +116,13 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Obx(() {
+        var qword = c.qSearch.value;
         return ListView.builder(
           itemCount: c.todos.length,
           itemBuilder: (context, index) {
             final todo = c.todos[index];
-            if (c.qSearch() != "") {
-              if (todo.title.toLowerCase().contains(c.qSearch.toLowerCase())) {
+            if (qword != "") {
+              if (todo.title.toLowerCase().contains(qword.toLowerCase())) {
                 return CheckboxListTile(
                   value: todo.isDone,
                   title: Text(todo.title),
